@@ -1,0 +1,5 @@
+
+hier sind die Zeiten für den Berlin Marathon, sowie die Strecke.
+Kannst Du bitte als Startzeit 09:15 Uhr als default einsetzen. Lass das bitte anpassbar.
+
+- Strecke, Zeiten und Startzeit-Default müsste ja alles sein was Du brauchst, oder?
