@@ -170,8 +170,8 @@ if (coltoggle){
 
 
   colorScale ={ mara: d3.scaleLinear()
-            .domain([0, 100,150])  // Input domain
-            .range([ "blue","yellow","red"]),
+            .domain([0, 100])  // Input domain
+            .range([ "blue","yellow"]),
             
             maraslow: d3.scaleLinear()
             .domain([0, 500])  // Input domain
@@ -192,8 +192,8 @@ if (coltoggle){
 
   }
  const mengeScale = d3.scaleLinear()
-            .domain([0, 150])  // Input domain
-            .range([ 3,15]); 
+            .domain([0, 100])  // Input domain
+            .range([ 3,10]); 
 
            
 racenames={mara:"marathon",maraslow:"marathon diverted",half:"halfmarathon",tenkm:"10km run",fivekm:"5km run",twofivekm:"2.5km run"}
@@ -300,7 +300,7 @@ play = false
                             if(timr<delay[key] || timr>cutoff[key]+delay[key]){stroke=0;strokec=0,rad=0}
                            
       
-                            pointjsons[key].features[i+1].properties.radius = rad
+                            pointjsons[key].features[i+1].properties.radius = rad*1.5
                             pointjsons[key].features[i+1].properties.stroke = strokec
                             pointjsons[key].features[i+1].properties.fill = col
                           //  pointjsons[key].features[i+1].properties.fill-opacity = 0.5
