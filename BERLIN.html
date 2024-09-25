@@ -74,7 +74,7 @@ realtime = false
 
 
                     <td>time: </td>
-                    <td><span id="uhr">00:00</span></td>
+                    <td><span id="uhr">09:00</span></td>
                 <td></td>
                     <td>guntime:</td>
                     <td><span id="gunuhr">00:00</span></td>
@@ -200,18 +200,18 @@ racenames={mara:"marathon",maraslow:"marathon diverted",half:"halfmarathon",tenk
            cutoff = {mara:8*60+360+60,maraslow:8*60+360+60,half:5*60+360+120,tenkm:5*60+360+90,fivekm:3*60+330+360,twofivekm:3*60+360+360}
 
 
-           tim =360+180
+           tim =540
 key= "delay"
 const value = localStorage.getItem(key);
 
 // Check if the value exists
-delay={mara:255+360}
+delay={mara:555}
 if (value !== null) {
 
   delay = JSON.parse(value)
 
 } else {
-    delay={mara:255+360}
+    delay={mara:555}
     localStorage.setItem(key, JSON.stringify(delay));
 
 
@@ -261,10 +261,11 @@ play = false
 
  function zeitgewahlt(timr)
     {
-        console.log("marad: " +delay.mara + " * " + delay.maraslow + " 22 " +delay.marafull)
+     /*
         for(f=11;f<20;f++){
             markers[f].setLngLat([0,0])
         }
+            */
     //tim=timr        
         d3.select("#myRange").property("value", timr);
         d3.select('#uhr').text(convertMinutesToTime(Math.round(timr)))
@@ -293,13 +294,12 @@ play = false
                                         strokec=0
                             stroke = Math.min(10,mengeScale(menge))
                             rad = Math.min(10, mengeScale(menge))
-                            if (menge < 3){stroke=0;rad = 0;strokec=0}
+                            if (menge < 1){stroke=0;rad = 0;strokec=0}
                             col = colorScale[key](menge)
                             
                             if(timr<delay[key] || timr>cutoff[key]+delay[key]){stroke=0;strokec=0,rad=0}
                            
       
-                            console.log(pointjsons[key].features[i+1].properties)
                             pointjsons[key].features[i+1].properties.radius = rad
                             pointjsons[key].features[i+1].properties.stroke = strokec
                             pointjsons[key].features[i+1].properties.fill = col
@@ -322,17 +322,19 @@ play = false
                            linejsons[key].features[i].properties.width = 0}
 
                             }  
+                          
                             map.getSource('line-segments'+key).setData(linejsons[key])
                             map.getSource('circles'+key).setData(pointjsons[key])
-                            
-                        
+                     
+                            filast  = findIndices(woist.mara[kk])  
                    
                         }
                           
                     //    temp = Math.round(Math.max(0,timr-delay.mara)*3.136)
-
-                
-                  
+         
+                if (filast[0] != 0 && timr < delay.mara+122) {markers[8].setLngLat(coordinates.mara[filast[0]+1])}else{markers[8].setLngLat([0,0])}
+                        if (filast[1] != 0  ) {markers[9].setLngLat(coordinates.mara[filast[1]-1])}else{markers[9].setLngLat([0,0])}
+                        
     } 
  // button zum absoielen
                         
@@ -350,21 +352,21 @@ play = false
 }
                             },50)
                                 
-                            function findIndices(arr,key) {
+                            function findIndices(arr) {
     let firstIndex = -1;
     let lastIndex = -1;
 if(!arr){arr =[0]}
     // Loop through the array to find the first and last index
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i] > 2) {
+        if (arr[i] > 0) {
             if (firstIndex === -1) {
                 firstIndex = i; // Assign the first index
             }
             lastIndex = i; // Update the last index
         }
     }
-    if(lastIndex > coordinates[key].length-5||lastIndex ==NaN||lastIndex <0){lastIndex=0}
-    if(firstIndex > coordinates[key].length-5||firstIndex ==NaN||firstIndex <0){firstIndex=0}
+    if(lastIndex > coordinates.mara.length-5||lastIndex ==NaN||lastIndex <0){lastIndex=0}
+    if(firstIndex > coordinates.mara.length-5||firstIndex ==NaN||firstIndex <0){firstIndex=0}
     return [ lastIndex,firstIndex ];
 }
 
